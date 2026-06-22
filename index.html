@@ -16,7 +16,7 @@
         <input type="text" id="nombre" placeholder="Nombre del artículo" required>
         <input type="number" id="precio" placeholder="Precio ($)" required>
         <input type="number" id="existencia" placeholder="Cantidad" required>
-        <button type="submit">Enviar a la Nube</button>
+        <button type="submit">➕ Registrar Producto</button>
       </form>
     </div>
 
@@ -24,9 +24,25 @@
       <h3>Existencias en Base de Datos</h3>
       <table>
         <thead>
-          <tr><th>Artículo</th><th>Precio</th><th>Stock</th></tr>
+          <tr>
+            <th>Artículo</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+          </tr>
         </thead>
-        <tbody id="tabla"></tbody>
+        <tbody id="tabla">
+          <!-- Ejemplo fijo para que se vean los botones -->
+          <tr>
+            <td>Ejemplo</td>
+            <td>$0</td>
+            <td>0 pzas</td>
+            <td>
+              <button disabled>✏️ Editar</button>
+              <button disabled>🗑️ Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
