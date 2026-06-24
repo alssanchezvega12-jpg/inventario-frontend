@@ -1,24 +1,29 @@
 const API_URL = "https://inventario-backend-4sl0.onrender.com";
+
 // Función para consultar los datos guardados en MongoDB Atlas
 async function obtenerProductos() {
   try {
-    const res = await fetch(API_URL);
+    const res = await fetch(API_URL + "/productos");
     const datos = await res.json();
     const tabla = document.getElementById("tabla");
     tabla.innerHTML = "";
 
-    datos.forEach(prod => {
-      tabla.innerHTML += `
-        <tr>
-          <td>${prod.nombre}</td>
-          <td>$${prod.precio}</td>
-          <td>${prod.existencia} pzas</td>
-          <td>
-            <button onclick="editarProducto('${prod._id}')">✏️ Editar</button>
-            <button onclick="eliminarProducto('${prod._id}')">🗑️ Eliminar</button>
-          </td>
-        </tr>`;
-    });
+    if (Array.isArray(datos)) {
+      datos.forEach(prod => {
+        tabla.innerHTML += `
+          <tr>
+            <td>${prod.nombre}</td>
+            <td>$${prod.precio}</td>
+            <td>${prod.existencia} pzas</td>
+            <td>
+              <button onclick="editarProducto('${prod._id}')">✏️ Editar</button>
+              <button onclick="eliminarProducto('${prod._id}')">🗑️ Eliminar</button>
+            </td>
+          </tr>`;
+      });
+    } else {
+      console.error("El backend no devolvió un array:", datos);
+    }
   } catch (err) {
     console.error("Error al traer datos:", err);
   }
@@ -35,13 +40,13 @@ document.getElementById("formProducto").addEventListener("submit", async (e) => 
   };
 
   try {
-    const res = await fetch(API_URL, {
+    const res = await fetch(API_URL + "/productos", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(nuevoObj)
     });
 
-    if(res.ok) {
+    if (res.ok) {
       alert("¡Guardado con éxito en MongoDB Atlas!");
       document.getElementById("formProducto").reset();
       obtenerProductos(); // Recarga la tabla
@@ -56,7 +61,7 @@ async function eliminarProducto(id) {
   if (!confirm("¿Seguro que quieres eliminar este producto?")) return;
 
   try {
-    const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+    const res = await fetch(API_URL + "/productos/" + id, { method: "DELETE" });
     if (res.ok) {
       alert("Producto eliminado ✅");
       obtenerProductos();
@@ -82,7 +87,7 @@ async function editarProducto(id) {
   const actualizado = { nombre, precio: Number(precio), existencia: Number(existencia) };
 
   try {
-    const res = await fetch(`${API_URL}/${id}`, {
+    const res = await fetch(API_URL + "/productos/" + id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(actualizado)
