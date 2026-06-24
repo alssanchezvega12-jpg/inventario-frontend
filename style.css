@@ -24,20 +24,6 @@ input, button {
   box-sizing: border-box;
 }
 
-button {
-  background: #0066cc;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-}
-
-button:hover {
-  background: #004c99;
-}
-
 table {
   width: 100%;
   border-collapse: collapse;
@@ -55,28 +41,49 @@ th {
   color: white;
 }
 
+/* Botón base */
+button {
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s, background 0.3s;
+}
+
+/* Botón Crear */
+.btnCrear {
+  background: linear-gradient(135deg, #ff4d6d, #ff758f);
+  color: white;
+}
+.btnCrear:hover {
+  background: linear-gradient(135deg, #e63946, #ff4d6d);
+  transform: scale(1.05);
+}
+
+/* Botón Editar */
+.btnEditar {
+  background: #f4a261;
+  color: white;
+}
+.btnEditar:hover {
+  background: #e76f51;
+  transform: scale(1.05);
+}
+
+/* Botón Eliminar */
+.btnEliminar {
+  background: #e63946;
+  color: white;
+}
+.btnEliminar:hover {
+  background: #d62828;
+  transform: scale(1.05);
+}
+
 /* Botones dentro de la tabla */
 td button {
   width: auto;
   padding: 6px 12px;
   margin: 0 4px;
   font-size: 14px;
-}
-
-td button:first-child {
-  background-color: #ffcc00; /* Editar */
-  color: #333;
-}
-
-td button:first-child:hover {
-  background-color: #e6b800;
-}
-
-td button:last-child {
-  background-color: #e60073; /* Eliminar */
-  color: white;
-}
-
-td button:last-child:hover {
-  background-color: #cc005f;
 }
